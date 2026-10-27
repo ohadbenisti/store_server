@@ -12,8 +12,9 @@ def get_products() -> list[dict]:
     response = httpx2.get("https://fakestoreapi.com/products",timeout = 10)
     response.raise_for_status()  # Raise an error if the request failed
     data = response.json()  # Parse the JSON response
-    return data  # Return the list of products
-
+    data_up_to_100 = [product for product in data if product["price"] <= 100]
+        
+    return data_up_to_100  # Return the list of products
 
 if __name__ == "__main__":
     mcp.run()
